@@ -211,6 +211,7 @@ impl EspHttpConnection {
         // If response data from the previous request remains, subsequent requests may fail
         if self.is_response_initiated() {
             self.flush_response()?;
+            self.flush_response()?;
         }
 
         self.assert_initial();
