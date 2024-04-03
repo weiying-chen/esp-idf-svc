@@ -96,6 +96,8 @@ fn get_request(client: &mut HttpClient<EspHttpConnection>) -> anyhow::Result<()>
     // Drain the remaining response bytes
     // while response.read(&mut buf)? > 0 {}
 
+    response.connection().flush_response()?;
+
     Ok(())
 }
 
@@ -137,6 +139,8 @@ fn post_request(client: &mut HttpClient<EspHttpConnection>) -> anyhow::Result<()
     // Drain the remaining response bytes
     // while response.read(&mut buf)? > 0 {}
 
+    response.connection().flush_response()?;
+
     Ok(())
 }
 
@@ -175,6 +179,8 @@ fn post_chunked_request(client: &mut HttpClient<EspHttpConnection>) -> anyhow::R
 
     // Drain the remaining response bytes
     // while response.read(&mut buf)? > 0 {}
+
+    response.connection().flush_response()?;
 
     Ok(())
 }
