@@ -90,7 +90,7 @@ pub struct Configuration {
 }
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
-enum State {
+pub enum State {
     New,
     Request,
     Response,
@@ -208,10 +208,12 @@ impl EspHttpConnection {
         uri: &'a str,
         headers: &'a [(&'a str, &'a str)],
     ) -> Result<(), EspError> {
+        self.flush_response()?;
+
         // If response data from the previous request remains, subsequent requests may fail
-        if self.is_response_initiated() {
-            self.flush_response()?;
-        }
+        // if self.is_response_initiated() {
+        //     self.flush_response()?;
+        // }
 
         self.assert_initial();
 
@@ -263,6 +265,8 @@ impl EspHttpConnection {
         esp!(unsafe { esp_http_client_open(self.raw_client, self.request_content_len as i32) })?;
 
         self.state = State::Request;
+
+        // self.flush_response()?;
 
         Ok(())
     }

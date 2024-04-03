@@ -76,25 +76,26 @@ fn get_request(client: &mut HttpClient<EspHttpConnection>) -> anyhow::Result<()>
     // Note: If you don't want to pass in any headers, you can also use `client.get(url, headers)`.
     let request = client.request(Method::Get, url, &headers)?;
     info!("-> GET {}", url);
+
     let mut response = request.submit()?;
 
     // Process response
     let status = response.status();
     info!("<- {}", status);
-    let mut buf = [0u8; 1024];
-    let bytes_read = io::try_read_full(&mut response, &mut buf).map_err(|e| e.0)?;
-    info!("Read {} bytes", bytes_read);
-    match std::str::from_utf8(&buf[0..bytes_read]) {
-        Ok(body_string) => info!(
-            "Response body (truncated to {} bytes): {:?}",
-            buf.len(),
-            body_string
-        ),
-        Err(e) => error!("Error decoding response body: {}", e),
-    };
+    // let mut buf = [0u8; 1024];
+    // let bytes_read = io::try_read_full(&mut response, &mut buf).map_err(|e| e.0)?;
+    // info!("Read {} bytes", bytes_read);
+    // match std::str::from_utf8(&buf[0..bytes_read]) {
+    //     Ok(body_string) => info!(
+    //         "Response body (truncated to {} bytes): {:?}",
+    //         buf.len(),
+    //         body_string
+    //     ),
+    //     Err(e) => error!("Error decoding response body: {}", e),
+    // };
 
     // Drain the remaining response bytes
-    while response.read(&mut buf)? > 0 {}
+    // while response.read(&mut buf)? > 0 {}
 
     Ok(())
 }
@@ -120,22 +121,22 @@ fn post_request(client: &mut HttpClient<EspHttpConnection>) -> anyhow::Result<()
     let mut response = request.submit()?;
 
     // Process response
-    let status = response.status();
-    info!("<- {}", status);
-    let mut buf = [0u8; 1024];
-    let bytes_read = io::try_read_full(&mut response, &mut buf).map_err(|e| e.0)?;
-    info!("Read {} bytes", bytes_read);
-    match std::str::from_utf8(&buf[0..bytes_read]) {
-        Ok(body_string) => info!(
-            "Response body (truncated to {} bytes): {:?}",
-            buf.len(),
-            body_string
-        ),
-        Err(e) => error!("Error decoding response body: {}", e),
-    };
+    // let status = response.status();
+    // info!("<- {}", status);
+    // let mut buf = [0u8; 1024];
+    // let bytes_read = io::try_read_full(&mut response, &mut buf).map_err(|e| e.0)?;
+    // info!("Read {} bytes", bytes_read);
+    // match std::str::from_utf8(&buf[0..bytes_read]) {
+    //     Ok(body_string) => info!(
+    //         "Response body (truncated to {} bytes): {:?}",
+    //         buf.len(),
+    //         body_string
+    //     ),
+    //     Err(e) => error!("Error decoding response body: {}", e),
+    // };
 
     // Drain the remaining response bytes
-    while response.read(&mut buf)? > 0 {}
+    // while response.read(&mut buf)? > 0 {}
 
     Ok(())
 }
@@ -160,21 +161,21 @@ fn post_chunked_request(client: &mut HttpClient<EspHttpConnection>) -> anyhow::R
 
     // Process response
     let status = response.status();
-    info!("<- {}", status);
-    let mut buf = [0u8; 1024];
-    let bytes_read = io::try_read_full(&mut response, &mut buf).map_err(|e| e.0)?;
-    info!("Read {} bytes", bytes_read);
-    match std::str::from_utf8(&buf[0..bytes_read]) {
-        Ok(body_string) => info!(
-            "Response body (truncated to {} bytes): {:?}",
-            buf.len(),
-            body_string
-        ),
-        Err(e) => error!("Error decoding response body: {}", e),
-    };
+    // info!("<- {}", status);
+    // let mut buf = [0u8; 1024];
+    // let bytes_read = io::try_read_full(&mut response, &mut buf).map_err(|e| e.0)?;
+    // info!("Read {} bytes", bytes_read);
+    // match std::str::from_utf8(&buf[0..bytes_read]) {
+    //     Ok(body_string) => info!(
+    //         "Response body (truncated to {} bytes): {:?}",
+    //         buf.len(),
+    //         body_string
+    //     ),
+    //     Err(e) => error!("Error decoding response body: {}", e),
+    // };
 
     // Drain the remaining response bytes
-    while response.read(&mut buf)? > 0 {}
+    // while response.read(&mut buf)? > 0 {}
 
     Ok(())
 }
