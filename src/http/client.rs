@@ -266,6 +266,7 @@ impl EspHttpConnection {
 
         self.state = State::Request;
 
+        // Uncommenting this will cause `ESP_FAIL`
         // self.flush_response()?;
 
         Ok(())
